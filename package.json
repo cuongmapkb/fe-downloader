@@ -1,0 +1,23 @@
+{
+  "name": "fe-downloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/mehran.majidi/fe-downloader.git"
+  },
+  "keywords": [
+    "FrontendMasters",
+    "downloader"
+  ],
+  "author": "Mehran Majidi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/mehran.majidi/fe-downloader/issues"
+  },
+  "homepage": "https://gitlab.com/mehran.majidi/fe-downloader#readme"
+}
