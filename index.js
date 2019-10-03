@@ -2,11 +2,17 @@ const puppeteer = require('puppeteer');
 const jsonFile  = require('jsonfile');
 const fs        = require('fs');
 const { AutoComplete } = require('enquirer');
+const cheerio = require('cheerio');
+const download = require('./download');
+const parseCoursePage = require('./parseCoursePage');
+const fse = require('fs-extra');
+const path = require('path');
+
 
 const login = async (page) => {
   await page.goto('https://frontendmasters.com/login/', { timeout: 0, waitUntil: 'domcontentloaded' });
-  await page.type('input#username', 'me.majiidii@gmail.com');
-  await page.type('input#password', 'QeY3qbrcP9jFTpx');
+  await page.type('input#username', 'mohammadrezaabdoli1@gmail.com');
+  await page.type('input#password', 'ABDOLI');
 
   await Promise.all([
     page.click('form button'),
@@ -22,21 +28,21 @@ const getLoginCookies = async () => {
     const previousSession = await jsonFile.readFile('cookies.json');
     return (previousSession && previousSession.length) ? previousSession : false;
   } else {
-    return false;
+    return false; 
   }
 };
 
-const parseCoursesPage = async (page) => {
-  const courses = await page.evaluate(() => {
-    const nodes = Array.from(document.querySelectorAll('.MediaList > li.MediaItem'));
-    
-    return nodes.map((node) => {
-      return {
-        title: node.querySelector('.title a').innerHTML,
-        url: node.querySelector('.title a').href
-      };
+const parseCoursesPage = async (html) => {
+  const $ = cheerio.load(html);
+  const courses = [];
+
+  $('.MediaList > li.MediaItem').each((index, element) => {
+    courses.push({
+      title: $(element).find('.title a').text(),
+      url: $(element).find('.title a').attr('href')
     });
   });
+
 
   return courses;
 };
@@ -64,7 +70,8 @@ const parseCoursesPage = async (page) => {
   await page.goto('https://frontendmasters.com/courses/#all', { timeout: 0 });
   await page.screenshot({ path: './ag.jpeg', type: 'jpeg' });
   await page.waitForSelector('.MediaList > li.MediaItem');
-  const courses = await parseCoursesPage(page);
+  const html = await page.content();
+  const courses = await parseCoursesPage(html);
 
 
   const prompt = new AutoComplete({
@@ -74,7 +81,37 @@ const parseCoursesPage = async (page) => {
     choices: courses.map(course => course.title)
   });
 
-  prompt.run()
-    .then(answer => console.log('Answer: ', answer))
-    .catch(console.error);
+  const answer = await prompt.run();
+
+  console.log(`Downloading ${answer}`);
+  const url = courses.find(c => c.title === answer).url;
+
+  await page.goto('https://frontendmasters.com' + url, { timeout: 0, waitUntil: 'domcontentloaded' });
+  await Promise.all([
+    page.click('a.Button.ButtonRed'),
+    page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+  ]);
+
+  await page.waitForSelector('.FMPlayerScrolling > li');
+
+  const coursePageHtml = await page.content();
+  const course = parseCoursePage(coursePageHtml);
+
+
+  let count = 0;
+  fse.ensureDir(path.resolve(__dirname, 'test', answer));
+
+  for (let sectionName of Object.keys(course)) {
+    const section = course[sectionName];
+    for (let video of section) {
+      await page.click(`a[href="${video.href}"]`);
+      await page.waitFor(1000);
+      count++;
+      const url = await page.evaluate(() => {
+        return document.querySelector('video').src
+      });
+      fse.ensureDirSync(path.resolve(__dirname, 'test', answer, sectionName));
+      await download(url, `./test/${answer}/${sectionName}/${count}-${video.title}`, video.title);
+    }
+  }
 })();
