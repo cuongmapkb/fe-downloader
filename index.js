@@ -1,12 +1,14 @@
 const puppeteer = require('puppeteer');
 const jsonFile  = require('jsonfile');
 const fs        = require('fs');
-const { AutoComplete } = require('enquirer');
+const { AutoComplete, Input } = require('enquirer');
 const cheerio = require('cheerio');
 const download = require('./download');
 const parseCoursePage = require('./parseCoursePage');
 const fse = require('fs-extra');
 const path = require('path');
+const colors = require('colors');
+
 
 
 const login = async (page) => {
@@ -49,7 +51,7 @@ const parseCoursesPage = async (html) => {
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: true
+    headless: false
   });
   const page = await browser.newPage();
   const loginCookies = await getLoginCookies();
@@ -65,7 +67,7 @@ const parseCoursesPage = async (html) => {
   } else {
     await login(page);
   }
-  console.log('successfully logged in!');
+  console.log('successfully logged in!'.cyan);
   
   await page.goto('https://frontendmasters.com/courses/#all', { timeout: 0 });
   await page.screenshot({ path: './ag.jpeg', type: 'jpeg' });
@@ -83,7 +85,13 @@ const parseCoursesPage = async (html) => {
 
   const answer = await prompt.run();
 
-  console.log(`Downloading ${answer}`);
+  const locationPrompt = new Input({
+    message: 'Enter download location',
+  });
+
+  const location = await locationPrompt.run();
+
+  console.log(`Downloading '${answer}'`.blue);
   const url = courses.find(c => c.title === answer).url;
 
   await page.goto('https://frontendmasters.com' + url, { timeout: 0, waitUntil: 'domcontentloaded' });
@@ -99,19 +107,37 @@ const parseCoursesPage = async (html) => {
 
 
   let count = 0;
-  fse.ensureDir(path.resolve(__dirname, 'test', answer));
+  fse.ensureDir(path.resolve(location, answer));
 
   for (let sectionName of Object.keys(course)) {
     const section = course[sectionName];
+    const sectionDir = path.resolve(location, answer, sectionName);
+    fse.ensureDirSync(sectionDir);
+
+
     for (let video of section) {
-      await page.click(`a[href="${video.href}"]`);
-      await page.waitFor(1000);
       count++;
+      const videoDir = path.resolve(sectionDir, `${count}-${video.title}`);
+
+      if (fs.existsSync(videoDir)) {
+        console.log(`✔ You already downloaded '${count}-${video.title}'`.green);
+        continue;
+      }
+
+      await page.click(`a[href="${video.href}"]`);
+      await page.waitFor(2000);
+      
       const url = await page.evaluate(() => {
         return document.querySelector('video').src
       });
-      fse.ensureDirSync(path.resolve(__dirname, 'test', answer, sectionName));
-      await download(url, `./test/${answer}/${sectionName}/${count}-${video.title}`, video.title);
+      
+      await download(url, videoDir, video.title);
     }
   }
+
+
+  console.log(`✔ Successfully downloaded '${answer}'`.green);
+  await page.close();
+  await browser.close();
+  process.exit();
 })();
