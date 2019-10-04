@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const jsonFile  = require('jsonfile');
 const fs        = require('fs');
-const { AutoComplete, Input } = require('enquirer');
+const { AutoComplete, Input, Password } = require('enquirer');
 const cheerio = require('cheerio');
 const download = require('./download');
 const parseCoursePage = require('./parseCoursePage');
@@ -13,13 +13,26 @@ const colors = require('colors');
 
 const login = async (page) => {
   await page.goto('https://frontendmasters.com/login/', { timeout: 0, waitUntil: 'domcontentloaded' });
-  await page.type('input#username', 'mohammadrezaabdoli1@gmail.com');
-  await page.type('input#password', 'ABDOLI');
+  const usernamePrompt = new Input({ message: 'Enter your email '});
+  const email = await usernamePrompt.run();
+  
+  const passwordPrompt = new Password({ message: 'Enter your password' });
+  const password = await passwordPrompt.run();
+  
+  await page.type('input#username', email);
+  await page.type('input#password', password);
 
   await Promise.all([
     page.click('form button'),
     page.waitForNavigation({ waitUntil: 'domcontentloaded' })
   ]);
+
+  const url = await page.url();
+  
+  if (url.match(/login/gi)) {
+    console.log('✖ Incorrect credentials, try again'.red);
+    process.exit();
+  }
 
   const cookiesObject = await page.cookies();
   await jsonFile.writeFile('cookies.json', cookiesObject);
@@ -36,6 +49,12 @@ const getLoginCookies = async () => {
 
 const parseCoursesPage = async (html) => {
   const $ = cheerio.load(html);
+
+  if ($('a[href="#free"]').length) {
+    console.log('✖ This account is not premium, try another account'.red);
+    process.exit();
+  }
+
   const courses = [];
 
   $('.MediaList > li.MediaItem').each((index, element) => {
@@ -51,14 +70,12 @@ const parseCoursesPage = async (html) => {
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: false
+    headless: true
   });
   const page = await browser.newPage();
   const loginCookies = await getLoginCookies();
   
-  // await page.setUserAgent(userAgent);
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36');
-
 
   if (loginCookies) {
     for (cookie of loginCookies) {
@@ -67,11 +84,12 @@ const parseCoursesPage = async (html) => {
   } else {
     await login(page);
   }
-  console.log('successfully logged in!'.cyan);
+  console.log('✔ Successfully logged in'.green);
+  console.log('? Fetching courses list'.yellow);
   
-  await page.goto('https://frontendmasters.com/courses/#all', { timeout: 0 });
-  await page.screenshot({ path: './ag.jpeg', type: 'jpeg' });
+  await page.goto('https://frontendmasters.com/courses/', { timeout: 0 });
   await page.waitForSelector('.MediaList > li.MediaItem');
+  
   const html = await page.content();
   const courses = await parseCoursesPage(html);
 
