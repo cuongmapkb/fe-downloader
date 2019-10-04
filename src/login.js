@@ -4,6 +4,7 @@ const appRootPath = require('app-root-path').toString();
 const path = require('path');
 const fs = require('fs');
 const jsonFile = require('jsonfile');
+const colors = require('colors');
 
 const AUTH_FILE_PATH = path.resolve(appRootPath, 'auth.json');
 
@@ -62,7 +63,7 @@ const login = async (page) => {
 
     if (previousSession) {
         const confirmUsingLastSessionPrompt = new Toggle({
-            message: `Want to continue your last session as '${previousSession.email}' ?`,
+            message: `Want to continue your last session as '${ colors.brightRed(previousSession.email) }' ?`,
             enabled: 'Yes',
             disabled: 'No'
         });
