@@ -2,13 +2,14 @@ const request = require('request');
 const fs = require('fs');
 const progress = require('request-progress');
 const _cliProgress = require('cli-progress');
+const colors = require('colors');
 
 function download(uri, filename, title) {
     return new Promise(function (resolve, reject) {
         request.head(uri, function (err, res, body) {
             if (!err && res.statusCode == 200) {
                 const dlBar = new _cliProgress.SingleBar({
-                    format: 'Download Progress |' + '{bar}' + '| {filename} | {percentage}%',
+                    format: 'Download Progress |' + '{bar}' + '| ' +  colors.cyan('{filename}')  + ' | {percentage}%',
                 }, _cliProgress.Presets.legacy);
 
                 dlBar.start(1, 0);

@@ -1,4 +1,6 @@
-const { closeBrowser } = require('./browser');
+const {
+    closeBrowser
+} = require('./browser');
 const cheerio = require('cheerio');
 
 const parseCoursesPage = async (html) => {
@@ -25,10 +27,12 @@ const parseCoursesPage = async (html) => {
 
 
 const getCoursesList = async (page) => {
-    await page.goto('https://frontendmasters.com/courses/', { timeout: 0 });
+    await page.goto('https://frontendmasters.com/courses/', {
+        timeout: 0,
+        waitUntil: 'domcontentloaded'
+    });
     await page.waitForSelector('.MediaList > li.MediaItem');
-
-    const html    = await page.content();
+    const html = await page.content();
     return await parseCoursesPage(html);
 };
 

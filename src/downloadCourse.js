@@ -46,7 +46,7 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
             const videoFilePath = path.resolve(chapterDirectoryPath, `${videosCount}-${video.title}`);
 
             if (fs.existsSync(videoFilePath)) {
-                console.log(`✔ You already downloaded '${videosCount}-${video.title}'`.green);
+                console.log(`✔ You have already downloaded '${videosCount}-${video.title}'`.green);
                 continue;
             }
 
@@ -57,7 +57,7 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
                 return document.querySelector('video').src
             });
 
-            await downloadVideo(url, videoFilePath, video.title);
+            await downloadVideo(url, videoFilePath, `${videosCount}-${video.title}`);
         }
     }
 };
