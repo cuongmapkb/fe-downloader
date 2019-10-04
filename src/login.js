@@ -70,6 +70,10 @@ const login = async (page) => {
         const continueLastSession = await confirmUsingLastSessionPrompt.run();
         if (!continueLastSession) {
             await startNewSession(page);
+        } else {
+            for (let cookie of previousSession.cookies) {
+                await page.setCookie(cookie);
+            }
         }
     } else {
         await startNewSession(page);
