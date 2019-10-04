@@ -1,23 +1,40 @@
-const { Input, Password } = require('enquirer');
+const { Input, Password, Toggle } = require('enquirer');
+const { closeBrowser } = require('./browser');
+const appRootPath = require('app-root-path').toString();
+const path = require('path');
+const fs = require('fs');
+const jsonFile = require('jsonfile');
 
-const storeCookies = (email, cookies) => {
-    await jsonFile.writeFile('cookies.json', {
+const AUTH_FILE_PATH = path.resolve(appRootPath, 'auth.json');
+
+const storeCookies = async (email, cookies) => {
+    await jsonFile.writeFile(AUTH_FILE_PATH, {
         email,
         cookies
     });
 };
 
-const readCookies = () => {
-
+const getPrevCookies = async () => {
+    if (fs.existsSync(AUTH_FILE_PATH)) {
+        const previousSession = await jsonFile.readFile(AUTH_FILE_PATH);
+        if (previousSession && previousSession.email && previousSession.cookies.length) {
+            return previousSession;
+        } else {
+            return null;
+        }
+    } else {
+        return null; 
+    }
 };
 
-const login = async (page) => {
+const startNewSession = async (page) => {
     await page.goto('https://frontendmasters.com/login/', { timeout: 0, waitUntil: 'domcontentloaded' });
     
-    const usernamePrompt = new Input({ message: 'Enter your email'});
+    console.log('✔ Enter your FrontendMasters account information'.yellow);
+    const usernamePrompt = new Input({ message: 'Email'});
     const email = await usernamePrompt.run();
     
-    const passwordPrompt = new Password({ message: 'Enter your password' });
+    const passwordPrompt = new Password({ message: 'Password' });
     const password = await passwordPrompt.run();
     
     await page.type('input#username', email);
@@ -32,11 +49,31 @@ const login = async (page) => {
     
     if (url.match(/login/gi)) {
       console.log('✖ Incorrect credentials, try again'.red);
+      closeBrowser();
       process.exit();
     }
   
     const cookiesObject = await page.cookies();
     await storeCookies(email, cookiesObject);
+};
+
+const login = async (page) => {
+    const previousSession = await getPrevCookies();
+
+    if (previousSession) {
+        const confirmUsingLastSessionPrompt = new Toggle({
+            message: `Want to continue your last session as '${previousSession.email}' ?`,
+            enabled: 'Yes',
+            disabled: 'No'
+        });
+
+        const continueLastSession = await confirmUsingLastSessionPrompt.run();
+        if (!continueLastSession) {
+            await startNewSession(page);
+        }
+    } else {
+        await startNewSession(page);
+    }
 };
 
 

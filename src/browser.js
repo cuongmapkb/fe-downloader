@@ -1,28 +1,30 @@
 const puppeteer = require('puppeteer');
 
-module.exports = (async () => {
-    const browser = await puppeteer.launch({ headless: false });
-    let pages = [];
+let browser;
+let pages = [];
 
-    const createPage = async (options) => {
-        const newPage = await browser.newPage(options);
-        pages.push(newPage);
+const openBrowser = async () => {
+    browser = await puppeteer.launch({ headless: false });
+};
 
-        return newPage;
-    };
+const openPage = async (options) => {
+    const newPage = await browser.newPage(options);
+    await newPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36');
+    pages.push(newPage);
 
-    const closeBrowser = async () => {
-        for (let page of pages) {
-            await page.close();
-        }
+    return newPage;
+};
 
-        await browser.close();
+const closeBrowser = async () => {
+    for (let page of pages) {
+        await page.close();
     }
 
+    await browser.close();
+};
 
-    return {
-        closeBrowser,
-        createPage,
-        closeBrowser
-    }
-})();
+module.exports = {
+    openBrowser,
+    closeBrowser,
+    openPage
+};
