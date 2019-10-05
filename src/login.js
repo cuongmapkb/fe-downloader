@@ -58,6 +58,18 @@ const startNewSession = async (page) => {
     await storeCookies(email, cookiesObject);
 };
 
+const checkIfSessionIsExpired = async (page) => {
+    await page.goto('https://frontendmasters.com', { 
+        timeout: 0,
+        waitUntil: 'domcontentloaded'
+    });
+
+    if (await page.$('a[href*="/login/"]')) {
+        console.log('✖ Your session has expired, try loggin again'.red);
+        return Promise.reject();
+    }
+};
+
 const login = async (page) => {
     const previousSession = await getPrevCookies();
 
@@ -74,6 +86,12 @@ const login = async (page) => {
         } else {
             for (let cookie of previousSession.cookies) {
                 await page.setCookie(cookie);
+            }
+
+            try {
+                await checkIfSessionIsExpired(page);
+            } catch(sessionExpiredError) {
+                return await startNewSession(page);
             }
         }
     } else {
