@@ -17,10 +17,14 @@ const storeCookies = async (email, cookies) => {
 
 const getPrevCookies = async () => {
     if (fs.existsSync(AUTH_FILE_PATH)) {
-        const previousSession = await jsonFile.readFile(AUTH_FILE_PATH);
-        if (previousSession && previousSession.email && previousSession.cookies.length) {
-            return previousSession;
-        } else {
+        try {
+            const previousSession = await jsonFile.readFile(AUTH_FILE_PATH);
+            if (previousSession && previousSession.email && previousSession.cookies.length) {
+                return previousSession;
+            } else {
+                return null;
+            }
+        } catch(readJSONErr) {
             return null;
         }
     } else {

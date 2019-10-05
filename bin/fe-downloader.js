@@ -1,4 +1,3 @@
-require('dotenv').config();
 const {
     AutoComplete,
 } = require('enquirer');
@@ -8,12 +7,13 @@ const {
     openBrowser,
     openPage,
     closeBrowser
-} = require('./src/browser');
-const login = require('./src/login');
-const getCoursesList = require('./src/coursesList');
-const downloadCourse = require('./src/downloadCourse');
+} = require('./browser');
+const login = require('./login');
+const getCoursesList = require('./coursesList');
+const downloadCourse = require('./downloadCourse');
 
-(async () => {
+
+module.exports = async ({ delay }) => {
     try {
       await openBrowser();
 
@@ -36,9 +36,12 @@ const downloadCourse = require('./src/downloadCourse');
       const selectedCourseTitle = await selectCoursePrompt.run();
       const coursePageUrl = courses.find(c => c.title === selectedCourseTitle).url;
 
-      await downloadCourse(page, selectedCourseTitle, coursePageUrl);
-    } catch(err) {}
+      await downloadCourse(page, selectedCourseTitle, coursePageUrl, delay);
+    } catch(err) {
+        console.err(err);
+        process.exit();
+    }
 
     await closeBrowser();
     process.exit();
-})();
+};

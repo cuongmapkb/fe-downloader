@@ -30,9 +30,10 @@ const goToCourseDetailsPage = async (page, courseUrl) => {
     await page.waitForSelector('.FMPlayerScrolling > li');
 };
 
-const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTitle) => {
+const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTitle, delay) => {
     let videosCount = 0;
     const courseDirectoryPath = path.resolve(downloadPath, courseTitle); 
+    const downloadDelay = delay * 60 * 1000;
 
     fse.ensureDirSync(courseDirectoryPath);
 
@@ -51,7 +52,7 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
             }
 
             await page.click(`a[href="${video.href}"]`);
-            await page.waitFor(+process.env.WAIT_BETWEEN_DOWNLOADS * 60 * 1000);
+            await page.waitFor(downloadDelay);
 
             const url = await page.evaluate(() => {
                 return document.querySelector('video').src
@@ -62,7 +63,7 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
     }
 };
 
-const downloadCourse = async (page, courseTitle, courseUrl) => {
+const downloadCourse = async (page, courseTitle, courseUrl, delay) => {
     console.log(`✔ Downloading '${courseTitle}' course`.blue);
     const downloadPath = await getDownloadPathFromUser();
 
@@ -71,7 +72,7 @@ const downloadCourse = async (page, courseTitle, courseUrl) => {
     const coursePageHtml = await page.content();
     const courseVideos = parseCoursePage(coursePageHtml);
 
-    await downloadCourseVideos(page, courseVideos, downloadPath, courseTitle);
+    await downloadCourseVideos(page, courseVideos, downloadPath, courseTitle, delay);
     console.log(`✔ Successfully downloaded '${courseTitle}'`.green);
 };
 
