@@ -51,7 +51,7 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
             }
 
             await page.click(`a[href="${video.href}"]`);
-            await page.waitFor(3000);
+            await page.waitFor(+process.env.WAIT_BETWEEN_DOWNLOADS * 60 * 1000);
 
             const url = await page.evaluate(() => {
                 return document.querySelector('video').src

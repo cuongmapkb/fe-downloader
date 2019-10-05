@@ -4,7 +4,7 @@ let browser;
 let pages = [];
 
 const openBrowser = async () => {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({ headless: process.env.HEADLESS_MODE === 'true' });
 };
 
 const openPage = async (options) => {
