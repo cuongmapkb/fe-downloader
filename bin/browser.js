@@ -3,8 +3,8 @@ const puppeteer = require('puppeteer');
 let browser;
 let pages = [];
 
-const openBrowser = async () => {
-    browser = await puppeteer.launch({ headless: false });
+const lunchBrowser = async (openBrowser) => {
+    browser = await puppeteer.launch({ headless: !openBrowser });
 };
 
 const openPage = async () => {
@@ -24,7 +24,7 @@ const closeBrowser = async () => {
 };
 
 module.exports = {
-    openBrowser,
+    lunchBrowser,
     closeBrowser,
     openPage
 };

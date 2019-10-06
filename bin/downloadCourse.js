@@ -30,8 +30,21 @@ const goToCourseDetailsPage = async (page, courseUrl) => {
     await page.waitForSelector('.FMPlayerScrolling > li');
 };
 
+const getVideoPlayerUrl = async (page) => {
+    return await page.evaluate(() => {
+        return document.querySelector('video').src
+    });
+}
+
+const pauseVideoPlayer = async (page) => {
+    await page.evaluate(() => {
+        return document.querySelector('video').pause();        
+    });
+}
+
 const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTitle, delay) => {
     let videosCount = 0;
+    let lastVideoUrl;
     const courseDirectoryPath = path.resolve(downloadPath, courseTitle); 
     const downloadDelay = delay * 60 * 1000;
 
@@ -51,12 +64,17 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
                 continue;
             }
 
+            lastVideoUrl = await getVideoPlayerUrl(page);
             await page.click(`a[href="${video.href}"]`);
             await page.waitFor(downloadDelay);
 
-            const url = await page.evaluate(() => {
-                return document.querySelector('video').src
+            await page.waitForFunction((lastVideoUrl) => {
+                console.log(document.querySelector('video').src, lastVideoUrl);
+                return document.querySelector('video').src && document.querySelector('video').src !== lastVideoUrl
             });
+            const url = await getVideoPlayerUrl(page);
+            lastVideoUrl = url;
+            await pauseVideoPlayer(page);
 
             await downloadVideo(url, videoFilePath, `${videosCount}-${video.title}`);
         }
