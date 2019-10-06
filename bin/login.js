@@ -1,12 +1,11 @@
 const { Input, Password, Toggle } = require('enquirer');
 const { closeBrowser } = require('./browser');
-const appRootPath = require('app-root-path').toString();
 const path = require('path');
 const fs = require('fs');
 const jsonFile = require('jsonfile');
 const colors = require('colors');
 
-const AUTH_FILE_PATH = path.resolve(appRootPath, 'auth.json');
+const AUTH_FILE_PATH = path.resolve(__dirname, '..', 'auth.json');
 
 const storeCookies = async (email, cookies) => {
     await jsonFile.writeFile(AUTH_FILE_PATH, {
