@@ -38,7 +38,7 @@ module.exports = async ({ delay }) => {
 
       await downloadCourse(page, selectedCourseTitle, coursePageUrl, delay);
     } catch(err) {
-        console.err(err);
+        console.error(err);
         process.exit();
     }
 
