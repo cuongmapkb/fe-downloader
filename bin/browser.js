@@ -4,7 +4,7 @@ let browser;
 let pages = [];
 
 const openBrowser = async () => {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch();
 };
 
 const openPage = async () => {
