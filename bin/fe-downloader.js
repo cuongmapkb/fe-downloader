@@ -4,7 +4,7 @@ const {
 const colors = require('colors');
 
 const {
-    openBrowser,
+    lunchBrowser,
     openPage,
     closeBrowser
 } = require('./browser');
@@ -13,9 +13,9 @@ const getCoursesList = require('./coursesList');
 const downloadCourse = require('./downloadCourse');
 
 
-module.exports = async ({ delay }) => {
+module.exports = async ({ delay, openBrowser }) => {
     try {
-      await openBrowser();
+      await lunchBrowser(openBrowser);
 
       const page = await openPage();
       await login(page);
