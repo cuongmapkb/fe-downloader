@@ -13,6 +13,7 @@ Download courses from FrontendMasters using puppeteer
 * Custom waiting delay between downloads
 * Skip downloaded videos
 * Keep session for later usage
+* Download subtitles
 
 ## Getting Started
 
@@ -30,10 +31,11 @@ npm install fe-downloader -g
 
 ### Options
 
-| Name         | Description                               | Default |
-| ------------ | ----------------------------------------- | ------- |
-| delay        | waiting delay in minute between downloads | 5       |
-| open-browser | open underlying chromimum                 | false   |
+| Name               | Description                               | Default |
+| ------------------ | ----------------------------------------- | ------- |
+| delay              | waiting delay in minute between downloads | 5       |
+| open-browser       | open underlying chromimum                 | false   |
+| download-subtitles | Download subtitles for each video         | false   |
 
 ## Usage
 
