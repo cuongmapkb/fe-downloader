@@ -5,6 +5,7 @@ const downloader = require('./fe-downloader');
 
 args
     .option('delay', 'Waiting time between downloads (in minute)', 5)
+    .option('download-subtitles', 'Download subtitles', false)
     .option('open-browser', 'Open chromium to see what happens', false);
 const flags = args.parse(process.argv);
 

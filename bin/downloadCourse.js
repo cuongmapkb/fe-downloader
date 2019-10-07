@@ -5,6 +5,9 @@ const { Input } = require('enquirer');
 
 const parseCoursePage = require('./parseCoursePage');
 const downloadVideo = require('./downloadVideo');
+const downloadSubtitle = require('./downloadSubtitle');
+const { subtitleSpy } = require('./requestInterceptor');
+const { closeBrowser } = require('./browser');
 
 const getDownloadPathFromUser = async () => {
     const locationPrompt = new Input({
@@ -42,7 +45,7 @@ const pauseVideoPlayer = async (page) => {
     });
 }
 
-const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTitle, delay) => {
+const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTitle, delay, downloadSubtitles) => {
     let videosCount = 0;
     let lastVideoUrl;
     const courseDirectoryPath = path.resolve(downloadPath, courseTitle); 
@@ -68,10 +71,19 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
             await page.click(`a[href="${video.href}"]`);
             await page.waitFor(downloadDelay);
 
+            if (downloadSubtitles && subtitleSpy.hasMatch()) {
+                const subtitles = subtitleSpy.getMatchedUrls();
+                if (subtitles.length) {
+                    try {
+                        await downloadSubtitle(subtitles[subtitles.length - 1], `${videoFilePath}.srt`);
+                    } catch(downloadSubtitleError) {}
+                }
+            }
+
             await page.waitForFunction((lastVideoUrl) => {
-                console.log(document.querySelector('video').src, lastVideoUrl);
                 return document.querySelector('video').src && document.querySelector('video').src !== lastVideoUrl
             });
+
             const url = await getVideoPlayerUrl(page);
             lastVideoUrl = url;
             await pauseVideoPlayer(page);
@@ -81,16 +93,27 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
     }
 };
 
-const downloadCourse = async (page, courseTitle, courseUrl, delay) => {
+const setUpXHRErrorHandler = (page) => {
+    page.on('response', async (response) => {
+        if (response._status === 429) {
+            console.error('429: You have reached maximum request limit');
+            await closeBrowser();
+            process.exit();
+        }
+    });
+};
+
+const downloadCourse = async (page, courseTitle, courseUrl, delay, downloadSubtitles) => {
     console.log(`✔ Downloading '${courseTitle}' course`.blue);
     const downloadPath = await getDownloadPathFromUser();
+    setUpXHRErrorHandler(page);
 
     await goToCourseDetailsPage(page, courseUrl);
     
     const coursePageHtml = await page.content();
     const courseVideos = parseCoursePage(coursePageHtml);
 
-    await downloadCourseVideos(page, courseVideos, downloadPath, courseTitle, delay);
+    await downloadCourseVideos(page, courseVideos, downloadPath, courseTitle, delay, downloadSubtitles);
     console.log(`✔ Successfully downloaded '${courseTitle}'`.green);
 };
 

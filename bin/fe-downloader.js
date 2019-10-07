@@ -11,10 +11,10 @@ const {
 const login = require('./login');
 const getCoursesList = require('./coursesList');
 const downloadCourse = require('./downloadCourse');
-const requestInterceptor = require('./requestInterceptor');
+const { requestInterceptor } = require('./requestInterceptor');
 
 
-module.exports = async ({ delay, openBrowser }) => {
+module.exports = async ({ delay, openBrowser, downloadSubtitles }) => {
     try {
       await lunchBrowser(openBrowser);
 
@@ -39,7 +39,7 @@ module.exports = async ({ delay, openBrowser }) => {
       const selectedCourseTitle = await selectCoursePrompt.run();
       const coursePageUrl = courses.find(c => c.title === selectedCourseTitle).url;
 
-      await downloadCourse(page, selectedCourseTitle, coursePageUrl, delay);
+      await downloadCourse(page, selectedCourseTitle, coursePageUrl, delay, downloadSubtitles);
     } catch(err) {
         console.error(err);
         process.exit();

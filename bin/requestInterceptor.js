@@ -1,15 +1,19 @@
 const { RequestInterceptor, RequestSpy } = require('puppeteer-request-spy');
+const isSubtitleRegexp = new RegExp(/\.vtt/ig);
 
-const matcher = (testee) => {
-    console.log('called');
-    return testee.indexOf('vtt') > -1;
-}
+
+const matcher = (testee, keywoard) => {
+    return testee.indexOf(keywoard) > -1;
+};
 
 
 const requestInterceptor = new RequestInterceptor(matcher);
 
-const subtitleSpy = new RequestSpy('/sd');
+const subtitleSpy = new RequestSpy('.vtt');
 
 requestInterceptor.addSpy(subtitleSpy);
 
-module.exports = requestInterceptor;
+module.exports = {
+    requestInterceptor,
+    subtitleSpy
+};
