@@ -11,6 +11,7 @@ Download courses from FrontendMasters using puppeteer
 * Interactive interface
 * Support free accounts
 * Custom waiting delay between downloads
+* Skip downloaded videos
 * Keep session for later usage
 
 ## Getting Started
