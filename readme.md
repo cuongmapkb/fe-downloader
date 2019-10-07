@@ -34,7 +34,7 @@ npm install fe-downloader -g
 | delay        | waiting delay in minute between downloads | 5       |
 | open-browser | open underlying chromimum                 | false   |
 
-### Usage
+## Usage
 
 ```bash
 fe-downloader --delay 4 --open-brwoser
