@@ -1,0 +1,405 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /home/mehran/fe-downloader
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 141
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 42
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 200
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: FrontendMasters Downloader
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 793
+    content: "\e]0;~/fe-downloader\a\e[01;32m\e[00m:\e[01;34m~/fe-downloader\e[00m$ "
+  - delay: 406
+    content: f
+  - delay: 86
+    content: e
+  - delay: 249
+    content: '-downloader '
+  - delay: 1689
+    content: '-'
+  - delay: 180
+    content: '-'
+  - delay: 197
+    content: d
+  - delay: 130
+    content: e
+  - delay: 138
+    content: l
+  - delay: 154
+    content: a
+  - delay: 308
+    content: 'y'
+  - delay: 227
+    content: ' '
+  - delay: 402
+    content: '0'
+  - delay: 234
+    content: .
+  - delay: 157
+    content: '1'
+  - delay: 526
+    content: "\r\n"
+  - delay: 528
+    content: "\e[?25l\e[36m?\e[39m Want to continue your last session as '\e[91me****@gmail.com\e[39m' ? \e[2m‣\e[22m \e[36m\e[4mNo\e[24m\e[39m\e[2m / \e[22mYes\e[5D\e[2K\e[1G\e[36m?\e[39m Want to continue your last session as '\e[91me****@gmail.com\e[39m' ? \e[2m‣\e[22m \e[36m\e[4mNo\e[24m\e[39m\e[2m / \e[22mYes\e[5D"
+  - delay: 3561
+    content: "\e[2K\e[1G\e[32m✔\e[39m Want to continue your last session as '\e[91me****@gmail.com\e[39m' ? \e[2m·\e[22m \e[36m\e[4mNo\e[24m\e[39m\e[2m / \e[22mYes\e[5D\r\n"
+  - delay: 2482
+    content: "\e[33m✔ Enter your FrontendMasters account information\e[39m\r\n\e[?25l\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m \e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m\e[1D"
+  - delay: 1140
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m m\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 252
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 286
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 190
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.m\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 105
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.ma\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 192
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.maj\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 246
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.maji\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 89
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majii\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 466
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiid\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 318
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidi\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 146
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 201
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 121
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@g\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 177
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gm\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 126
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gma\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 133
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gmai\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 129
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gmail\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 287
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gmail.\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 143
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gmail.c\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 162
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gmail.co\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 107
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEmail\e[22m \e[2m‣\e[22m me.majiidii@gmail.com\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 444
+    content: "\e[2K\e[1G\e[32m✔\e[39m \e[1mEmail\e[22m \e[2m·\e[22m \e[32mme.majiidii@gmail.com\e[39m\r\n\e[?25h\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m "
+  - delay: 824
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m*\e[22m"
+  - delay: 387
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m**\e[22m"
+  - delay: 296
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m***\e[22m"
+  - delay: 504
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m****\e[22m"
+  - delay: 386
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m*****\e[22m"
+  - delay: 288
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m******\e[22m"
+  - delay: 289
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m*******\e[22m"
+  - delay: 252
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m********\e[22m"
+  - delay: 318
+    content: "\e[2K\e[1G\e[36m?\e[39m \e[1mPassword\e[22m \e[2m‣\e[22m \e[2m*********\e[22m"
+  - delay: 822
+    content: "\e[2K\e[1G\e[32m✔\e[39m \e[1mPassword\e[22m \e[2m·\e[22m \e[36m*********\e[39m\r\n"
+  - delay: 6343
+    content: "\e[32m✔ Successfully logged in\e[39m\r\n\e[33m✔ Fetching courses list...\e[39m\r\n"
+  - delay: 3075
+    content: "\e[31m✖ This account is not premium, you can only download free courses\e[39m\r\n"
+  - delay: 3406
+    content: "\e[?25l\e[?25h\e[36m?\e[39m \e[1mSelect course to download\e[22m \e[2m…\e[22m \r\n\e[36m\e[4mGetting Started with JavaScript, v2\e[24m\e[39m\r\nComplete Intro to Web Development, v2\r\nA Practical Guide to Algorithms with JavaScript\r\nIntroduction to JavaScript Programming\e[4A\e[31G"
+  - delay: 1989
+    content: "\e[4B\e[2K\e[F\e[2K\e[F\e[2K\e[F\e[2K\e[F\e[2K\e[1G\e[36m?\e[39m \e[1mSelect course to download\e[22m \e[2m…\e[22m \r\nGetting Started with JavaScript, v2\r\n\e[36m\e[4mComplete Intro to Web Development, v2\e[24m\e[39m\r\nA Practical Guide to Algorithms with JavaScript\r\nIntroduction to JavaScript Programming\e[4A\e[31G"
+  - delay: 304
+    content: "\e[4B\e[2K\e[F\e[2K\e[F\e[2K\e[F\e[2K\e[F\e[2K\e[1G\e[36m?\e[39m \e[1mSelect course to download\e[22m \e[2m…\e[22m \r\nGetting Started with JavaScript, v2\r\nComplete Intro to Web Development, v2\r\n\e[36m\e[4mA Practical Guide to Algorithms with JavaScript\e[24m\e[39m\r\nIntroduction to JavaScript Programming\e[4A\e[31G"
+  - delay: 1125
+    content: "\e[4B\e[2K\e[F\e[2K\e[F\e[2K\e[F\e[2K\e[F\e[2K\e[1G\e[36m?\e[39m \e[1mSelect course to download\e[22m \e[2m…\e[22m g\r\n\e[36m\e[2mG\e[22m\e[39metting Started with JavaScript, v2\r\nA Practical \e[36m\e[2mG\e[22m\e[39muide to Algorithms with JavaScript\r\n\e[36m\e[4mIntroduction to JavaScript Pro\e[36m\e[2mg\e[22m\e[39m\e[36mramming\e[24m\e[39m\e[3A\e[32G"
+  - delay: 289
+    content: "\e[3B\e[2K\e[F\e[2K\e[F\e[2K\e[F\e[2K\e[1G\e[36m?\e[39m \e[1mSelect course to download\e[22m \e[2m…\e[22m ge\r\n\e[36m\e[4m\e[36m\e[2mGe\e[22m\e[39m\e[36mtting Started with JavaScript, v2\e[24m\e[39m\e[1A\e[33G"
+  - delay: 1254
+    content: "\e[1B\e[2K\e[F\e[2K\e[1G\e[32m✔\e[39m \e[1mSelect course to download\e[22m \e[2m·\e[22m \e[36mGetting Started with JavaScript, v2\e[39m\e[33D\r\n\e[34m✔ Downloading 'Getting Started with JavaScript, v2' course\e[39m\r\n"
+  - delay: 5
+    content: "\e[?25l\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m \e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m\e[1D"
+  - delay: 1217
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 338
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /h\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 187
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /ho\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 121
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /hom\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 128
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 728
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 258
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/m\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 124
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/me\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 480
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/meh\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 178
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehr\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 122
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehra\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 128
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 702
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 475
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/V\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 342
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/Vi\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 277
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/Vid\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 230
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/Vide\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 668
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/Video\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 206
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/Videos\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 677
+    content: "\e[?25l\e[2K\e[1G\e[36m?\e[39m \e[1mEnter download path\e[22m \e[2m‣\e[22m /home/mehran/Videos/\e[46m\e[30m\e[30m \e[39m\e[30m\e[39m\e[49m"
+  - delay: 449
+    content: "\e[2K\e[1G\e[32m✔\e[39m \e[1mEnter download path\e[22m \e[2m·\e[22m \e[32m/home/mehran/Videos/\e[39m\r\n"
+  - delay: 3490
+    content: "\e[32m✔ You have already downloaded '1-Introduction'\e[39m\r\n\e[32m✔ You have already downloaded '2-Course Overview'\e[39m\r\n\e[32m✔ You have already downloaded '3-Values'\e[39m\r\n\e[32m✔ You have already downloaded '4-Operations'\e[39m\r\n\e[32m✔ You have already downloaded '5-Types'\e[39m\r\n"
+  - delay: 1169
+    content: "\e7\e[?7l"
+  - delay: 7
+    content: "\e[1GDownload Progress |----------------------------------------| \e[36m{\e[39m | 0%\e[0K"
+  - delay: 101
+    content: "\e[1GDownload Progress |----------------------------------------| \e[36m6-Variables\e[39m | 0%\e[0K"
+  - delay: 1291
+    content: "\e[1GDownload Progress |=---------------------------------------| \e[36m6-Variables\e[39m | 2%\e[0K"
+  - delay: 997
+    content: "\e[1GDownload Progress |=---------------------------------------| \e[36m6-Variables\e[39m | 3%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |===-------------------------------------| \e[36m6-Variables\e[39m | 6%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |====------------------------------------| \e[36m6-Variables\e[39m | 9%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=====-----------------------------------| \e[36m6-Variables\e[39m | 12%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |======----------------------------------| \e[36m6-Variables\e[39m | 15%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=======---------------------------------| \e[36m6-Variables\e[39m | 18%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |========--------------------------------| \e[36m6-Variables\e[39m | 21%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |==========------------------------------| \e[36m6-Variables\e[39m | 24%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |===========-----------------------------| \e[36m6-Variables\e[39m | 28%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |============----------------------------| \e[36m6-Variables\e[39m | 30%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=============---------------------------| \e[36m6-Variables\e[39m | 32%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |==============--------------------------| \e[36m6-Variables\e[39m | 35%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |===============-------------------------| \e[36m6-Variables\e[39m | 38%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |=================-----------------------| \e[36m6-Variables\e[39m | 41%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |==================----------------------| \e[36m6-Variables\e[39m | 45%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |====================--------------------| \e[36m6-Variables\e[39m | 49%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |======================------------------| \e[36m6-Variables\e[39m | 55%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |========================----------------| \e[36m6-Variables\e[39m | 60%\e[0K"
+  - delay: 998
+    content: "\e[1GDownload Progress |==========================--------------| \e[36m6-Variables\e[39m | 65%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |============================------------| \e[36m6-Variables\e[39m | 70%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |==============================----------| \e[36m6-Variables\e[39m | 76%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |================================--------| \e[36m6-Variables\e[39m | 80%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |==================================------| \e[36m6-Variables\e[39m | 86%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |====================================----| \e[36m6-Variables\e[39m | 91%\e[0K"
+  - delay: 997
+    content: "\e[1GDownload Progress |======================================--| \e[36m6-Variables\e[39m | 96%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |========================================| \e[36m6-Variables\e[39m | 100%\e[0K"
+  - delay: 533
+    content: "\e[?7h\e8\r\n\e[32m✔ You have already downloaded '7-Expressions vs Statements'\e[39m\r\n"
+  - delay: 917
+    content: "\e7\e[?7l\e[1GDownload Progress |----------------------------------------| \e[36m{\e[39m | 0%\e[0K"
+  - delay: 101
+    content: "\e[1GDownload Progress |----------------------------------------| \e[36m8-If & Else\e[39m | 0%\e[0K"
+  - delay: 1438
+    content: "\e[1GDownload Progress |----------------------------------------| \e[36m8-If & Else\e[39m | 1%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=---------------------------------------| \e[36m8-If & Else\e[39m | 2%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=---------------------------------------| \e[36m8-If & Else\e[39m | 3%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |==--------------------------------------| \e[36m8-If & Else\e[39m | 4%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |==--------------------------------------| \e[36m8-If & Else\e[39m | 6%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |===-------------------------------------| \e[36m8-If & Else\e[39m | 7%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |===-------------------------------------| \e[36m8-If & Else\e[39m | 8%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |====------------------------------------| \e[36m8-If & Else\e[39m | 10%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |====------------------------------------| \e[36m8-If & Else\e[39m | 11%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=====-----------------------------------| \e[36m8-If & Else\e[39m | 13%\e[0K"
+  - delay: 994
+    content: "\e[1GDownload Progress |======----------------------------------| \e[36m8-If & Else\e[39m | 15%\e[0K"
+  - delay: 996
+    content: "\e[1GDownload Progress |=======---------------------------------| \e[36m8-If & Else\e[39m | 18%\e[0K"
+  - delay: 1002
+    content: "\e[1GDownload Progress |========--------------------------------| \e[36m8-If & Else\e[39m | 21%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |==========------------------------------| \e[36m8-If & Else\e[39m | 24%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |===========-----------------------------| \e[36m8-If & Else\e[39m | 27%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |============----------------------------| \e[36m8-If & Else\e[39m | 31%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=============---------------------------| \e[36m8-If & Else\e[39m | 33%\e[0K"
+  - delay: 1001
+    content: "\e[1GDownload Progress |==============--------------------------| \e[36m8-If & Else\e[39m | 36%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |================------------------------| \e[36m8-If & Else\e[39m | 40%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |=================-----------------------| \e[36m8-If & Else\e[39m | 43%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |==================----------------------| \e[36m8-If & Else\e[39m | 46%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |===================---------------------| \e[36m8-If & Else\e[39m | 47%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |===================---------------------| \e[36m8-If & Else\e[39m | 48%\e[0K"
+  - delay: 999
+    content: "\e[1GDownload Progress |====================--------------------| \e[36m8-If & Else\e[39m | 50%\e[0K"
+  - delay: 1000
+    content: "\e[1GDownload Progress |=====================-------------------| \e[36m8-If & Else\e[39m | 53%\e[0K"
+  - delay: 1002
+    content: "\e[1GDownload Progress |=======================-----------------| \e[36m8-If & Else\e[39m | 57%\e[0K"
+  - delay: 1005
+    content: "\e[1GDownload Progress |========================----------------| \e[36m8-If & Else\e[39m | 59%\e[0K"
+  - delay: 186
+    content: ^C
+  - delay: 127
+    content: "\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h\e[?25h"
+  #- delay: 6
+    #content: "\e]0;mehran@majidi: ~/Desktop/projects/fe-downloader\a\e[01;32mmehran@majidi\e[00m:\e[01;34m~/Desktop/projects/fe-downloader\e[00m$ "
+  # - delay: 45
+    # content: "logout\r\n"
