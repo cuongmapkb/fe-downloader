@@ -11,10 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/mehran.majidi/fe-downloader.git"
+    "url": "git+ssh://git@github.com:me-majidi/fe-downloader.git"
   },
   "keywords": [
     "FrontendMasters",
+    "downloader",
+    "frontend",
+    "training",
+    "puppeteer",
     "downloader"
   ],
   "author": {
@@ -23,9 +27,8 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/mehran.majidi/fe-downloader/issues"
+    "url": "https://github.com/me-majidi/fe-downloader/issues"
   },
-  "homepage": "https://gitlab.com/mehran.majidi/fe-downloader#readme",
   "dependencies": {
     "args": "^5.0.1",
     "cheerio": "^1.0.0-rc.3",
