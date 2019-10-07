@@ -17,11 +17,10 @@ function download(uri, filename, title) {
 
                 progress(request(uri))
                 .on('progress', function(state) {
-                    // console.log(state);
                     dlBar.update(state.percent, { filename: title });
                 })
                 .on('error', function(response) {
-                    console.log(err);
+                    console.error(err);
                     reject(new Error(err));
                 })
                 .on('close', function() {
