@@ -38,6 +38,7 @@
     "fs-extra": "^8.1.0",
     "jsonfile": "^5.0.0",
     "puppeteer": "^1.20.0",
+    "puppeteer-request-spy": "^1.3.1",
     "request": "^2.88.0",
     "request-progress": "^3.0.0"
   }
