@@ -69,6 +69,8 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
 
             lastVideoUrl = await getVideoPlayerUrl(page);
             await page.click(`a[href="${video.href}"]`);
+            await page.waitFor(5000);
+            await pauseVideoPlayer(page);
             await page.waitFor(downloadDelay);
 
             if (downloadSubtitles && subtitleSpy.hasMatch()) {
