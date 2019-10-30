@@ -1,9 +1,16 @@
-const { Input, Password, Toggle } = require('enquirer');
-const { closeBrowser } = require('./browser');
+const {
+    Input,
+    Password,
+    Toggle
+} = require('enquirer');
+const {
+    closeBrowser
+} = require('./browser');
 const path = require('path');
 const fs = require('fs');
 const jsonFile = require('jsonfile');
 const colors = require('colors');
+const __cookie = require('cookie');
 
 const AUTH_FILE_PATH = path.resolve(__dirname, '..', 'auth.json');
 
@@ -20,49 +27,61 @@ const getPrevCookies = async () => {
             const previousSession = await jsonFile.readFile(AUTH_FILE_PATH);
             if (previousSession && previousSession.email && previousSession.cookies.length) {
                 return previousSession;
+            } else if (typeof previousSession.cookie.length === 'string') {
+                return previousSession;
             } else {
                 return null;
             }
-        } catch(readJSONErr) {
+        } catch (readJSONErr) {
             return null;
         }
     } else {
-        return null; 
+        return null;
     }
 };
 
 const startNewSession = async (page) => {
-    await page.goto('https://frontendmasters.com/login/', { timeout: 0, waitUntil: 'domcontentloaded' });
-    
+    await page.goto('https://frontendmasters.com/login/', {
+        timeout: 0,
+        waitUntil: 'domcontentloaded'
+    });
+
     console.log('✔ Enter your FrontendMasters account information'.yellow);
-    const usernamePrompt = new Input({ message: 'Email'});
+    const usernamePrompt = new Input({
+        message: 'Email'
+    });
     const email = await usernamePrompt.run();
-    
-    const passwordPrompt = new Password({ message: 'Password' });
+
+    const passwordPrompt = new Password({
+        message: 'Password'
+    });
     const password = await passwordPrompt.run();
-    
+
     await page.type('input#username', email);
     await page.type('input#password', password);
-  
+
     await Promise.all([
-      page.click('form button'),
-      page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+        page.click('form button'),
+        page.waitForNavigation({
+            timeout: 0,
+            waitUntil: 'domcontentloaded'
+        })
     ]);
-  
+
     const url = await page.url();
-    
+
     if (url.match(/login/gi)) {
-      console.log('✖ Incorrect credentials, try again'.red);
-      closeBrowser();
-      process.exit();
+        console.log('✖ Incorrect credentials, try again'.red);
+        closeBrowser();
+        process.exit();
     }
-  
+
     const cookiesObject = await page.cookies();
     await storeCookies(email, cookiesObject);
 };
 
 const checkIfSessionIsExpired = async (page) => {
-    await page.goto('https://frontendmasters.com', { 
+    await page.goto('https://frontendmasters.com', {
         timeout: 0,
         waitUntil: 'domcontentloaded'
     });
@@ -87,13 +106,31 @@ const login = async (page) => {
         if (!continueLastSession) {
             await startNewSession(page);
         } else {
-            for (let cookie of previousSession.cookies) {
-                await page.setCookie(cookie);
+            if (typeof previousSession.cookies === 'string') {
+                const parsedCookiesObj = __cookie.parse(previousSession.cookies);
+                const parsedCookies = [];
+
+                for (let key of Object.keys(parsedCookiesObj)) {
+                    parsedCookies.push({
+                        name: key,
+                        value: parsedCookiesObj[key],
+                        url: 'https://frontendmasters.com'
+                    });
+                }
+
+
+                for (let cookie of parsedCookies) {
+                    await page.setCookie(cookie);
+                }
+            } else {
+                for (let cookie of previousSession.cookies) {
+                    await page.setCookie(cookie);
+                }
             }
 
             try {
                 await checkIfSessionIsExpired(page);
-            } catch(sessionExpiredError) {
+            } catch (sessionExpiredError) {
                 return await startNewSession(page);
             }
         }
