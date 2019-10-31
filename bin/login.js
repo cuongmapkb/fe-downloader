@@ -25,7 +25,7 @@ const getPrevCookies = async () => {
     if (fs.existsSync(AUTH_FILE_PATH)) {
         try {
             const previousSession = await jsonFile.readFile(AUTH_FILE_PATH);
-            if (previousSession && previousSession.email && previousSession.cookies.length) {
+            if (previousSession && previousSession.cookies.length) {
                 return previousSession;
             } else if (typeof previousSession.cookie.length === 'string') {
                 return previousSession;
@@ -60,16 +60,46 @@ const startNewSession = async (page) => {
     await page.type('input#username', email);
     await page.type('input#password', password);
 
-    await Promise.all([
-        page.click('form button'),
-        page.waitForNavigation({
-            timeout: 0,
-            waitUntil: 'domcontentloaded'
-        })
-    ]);
+    try {
+        await Promise.all([
+            page.click('form button'),
+            page.waitForNavigation({
+                timeout: 15000,
+                waitUntil: 'domcontentloaded'
+            })
+        ]);
+    } catch (loginError) {
+        console.log('✖ Failed to login because of Recaptcha, please login manually and paste your cookies below'.red);
+        const cookiesInput = new Input({
+            message: 'cookies'
+        });
+        const cookies = await cookiesInput.run();
+
+        const parsedCookiesObj = __cookie.parse(cookies);
+        console.log(parsedCookiesObj);
+        const parsedCookies = [];
+
+        for (let key of Object.keys(parsedCookiesObj)) {
+            parsedCookies.push({
+                name: key,
+                value: parsedCookiesObj[key],
+                url: 'https://frontendmasters.com'
+            });
+        }
+
+
+        for (let cookie of parsedCookies) {
+            await page.setCookie(cookie);
+        }
+
+        const cookiesObject = await page.cookies();
+        await storeCookies('', cookiesObject);
+
+        return Promise.resolve();
+    }
+
 
     const url = await page.url();
-
     if (url.match(/login/gi)) {
         console.log('✖ Incorrect credentials, try again'.red);
         closeBrowser();
@@ -97,7 +127,7 @@ const login = async (page) => {
 
     if (previousSession) {
         const confirmUsingLastSessionPrompt = new Toggle({
-            message: `Want to continue your last session as '${ colors.brightRed(previousSession.email) }' ?`,
+            message: `Want to continue your last session ${previousSession.email.length ? "as " + colors.brightRed(previousSession.email) : "" }?`,
             enabled: 'Yes',
             disabled: 'No'
         });
