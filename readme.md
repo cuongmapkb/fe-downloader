@@ -14,6 +14,7 @@ Download courses from FrontendMasters using puppeteer
 * Skip downloaded videos
 * Keep session for later usage
 * Download subtitles
+* Support Captcha
 
 ## Getting Started
 
