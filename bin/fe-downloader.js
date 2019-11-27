@@ -37,9 +37,15 @@ module.exports = async ({ delay, openBrowser, downloadSubtitles }) => {
       });
 
       const selectedCourseTitle = await selectCoursePrompt.run();
+    //   console.log('Chon course title', selectedCourseTitle);
+      let CourseName = selectedCourseTitle;
+      const characters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|'];
+      characters.forEach(el => {
+        CourseName = CourseName.replace(el, '');
+      });
       const coursePageUrl = courses.find(c => c.title === selectedCourseTitle).url;
 
-      await downloadCourse(page, selectedCourseTitle, coursePageUrl, delay, downloadSubtitles);
+      await downloadCourse(page, CourseName, coursePageUrl, delay, downloadSubtitles);
     } catch(err) {
         console.error(err);
         process.exit();

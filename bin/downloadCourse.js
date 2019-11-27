@@ -60,7 +60,14 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
 
         for (let video of chapterVideos) {
             videosCount++;
-            const videoFilePath = path.resolve(chapterDirectoryPath, `${videosCount}-${video.title}`);
+            //console.log('path video', video.title);
+            let videoTitle = video.title;
+            const characters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|'];
+            characters.forEach(el => {
+            	videoTitle = videoTitle.replace(el, '');
+            });
+            //console.log('path video', videoTitle);
+            const videoFilePath = path.resolve(chapterDirectoryPath, `${videosCount}-${videoTitle}`);
 
             if (fs.existsSync(videoFilePath)) {
                 console.log(`✔ You have already downloaded '${videosCount}-${video.title}'`.green);
@@ -90,7 +97,7 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
             lastVideoUrl = url;
             await pauseVideoPlayer(page);
 
-            await downloadVideo(url, videoFilePath, `${videosCount}-${video.title}`);
+            await downloadVideo(url, videoFilePath, `${videosCount}-${videoTitle}`);
         }
     }
 };
@@ -109,7 +116,6 @@ const downloadCourse = async (page, courseTitle, courseUrl, delay, downloadSubti
     console.log(`✔ Downloading '${courseTitle}' course`.blue);
     const downloadPath = await getDownloadPathFromUser();
     setUpXHRErrorHandler(page);
-
     await goToCourseDetailsPage(page, courseUrl);
     
     const coursePageHtml = await page.content();
