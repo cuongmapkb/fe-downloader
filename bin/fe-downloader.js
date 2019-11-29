@@ -13,6 +13,9 @@ const getCoursesList = require('./coursesList');
 const downloadCourse = require('./downloadCourse');
 const { requestInterceptor } = require('./requestInterceptor');
 
+RegExp.escape = function(s) {
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+};
 
 module.exports = async ({ delay, openBrowser, downloadSubtitles }) => {
     try {
@@ -41,7 +44,7 @@ module.exports = async ({ delay, openBrowser, downloadSubtitles }) => {
       let CourseName = selectedCourseTitle;
       const characters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|'];
       characters.forEach(el => {
-        CourseName = CourseName.replace(el, '');
+        CourseName = CourseName.replace(new RegExp(RegExp.escape(el), 'g'), '');
       });
       const coursePageUrl = courses.find(c => c.title === selectedCourseTitle).url;
 

@@ -8,7 +8,9 @@ const downloadVideo = require('./downloadVideo');
 const downloadSubtitle = require('./downloadSubtitle');
 const { subtitleSpy } = require('./requestInterceptor');
 const { closeBrowser } = require('./browser');
-
+RegExp.escape= function(s) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+};
 const getDownloadPathFromUser = async () => {
     const locationPrompt = new Input({
         message: 'Enter download path',
@@ -53,8 +55,15 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
 
     fse.ensureDirSync(courseDirectoryPath);
 
+    const characters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|'];
+
     for (let chapterTitle of Object.keys(courseChapters)) {
         const chapterVideos = courseChapters[chapterTitle];
+        
+        characters.forEach(el => {
+            chapterTitle = chapterTitle.replace(new RegExp(RegExp.escape(el), 'g'), '');
+        });
+
         const chapterDirectoryPath = path.resolve(courseDirectoryPath, chapterTitle);
         fse.ensureDirSync(chapterDirectoryPath);
 
@@ -62,9 +71,9 @@ const downloadCourseVideos = async (page, courseChapters, downloadPath, courseTi
             videosCount++;
             //console.log('path video', video.title);
             let videoTitle = video.title;
-            const characters = ['\\', '/', ':', '*', '?', '"', '<', '>', '|'];
+            
             characters.forEach(el => {
-            	videoTitle = videoTitle.replace(el, '');
+            	videoTitle = videoTitle.replace(new RegExp(RegExp.escape(el), 'g'), '');
             });
             //console.log('path video', videoTitle);
             const videoFilePath = path.resolve(chapterDirectoryPath, `${videosCount}-${videoTitle}`);
